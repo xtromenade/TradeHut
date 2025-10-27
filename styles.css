@@ -24,6 +24,10 @@ body {
     color: var(--dark-gray);
 }
 
+/* Utility container spacing for auth/dashboard pages */
+.container-sm { width: 92%; max-width: 480px; margin: 0 auto; }
+.container-md { width: 92%; max-width: 1100px; margin: 0 auto; }
+
 
 /* Navigation Styles */
 
@@ -72,12 +76,27 @@ body {
     color: var(--secondary-color);
 }
 
-.fa-bars,
 .fa-times {
     display: none;
     color: var(--white);
     font-size: 24px;
     cursor: pointer;
+}
+
+/* Accessible nav toggle */
+.nav-toggle {
+    display: none; /* hidden on desktop */
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 24px;
+    padding: 8px;
+    border-radius: 8px;
+}
+.nav-toggle:hover,
+.nav-toggle:focus {
+    outline: none;
+    background: rgba(255,255,255,0.08);
 }
 
 
@@ -171,10 +190,8 @@ body {
     .nav-links ul li {
         margin: 15px 0;
     }
-    .fa-bars {
-        display: block;
-    }
-    .fa-times {
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+    .nav-links .fa-times {
         display: block;
         margin: 10px;
         font-size: 22px;

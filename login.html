@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - TradeHut</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .auth-wrap { min-height: 100vh; display: grid; place-items: center; background: var(--light-gray); padding: 30px; }
+        .auth-card { width: 100%; max-width: 420px; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); padding: 28px; }
+        .auth-title { text-align: center; margin-bottom: 18px; color: var(--primary-color); }
+        .auth-form .form-row { margin-bottom: 14px; }
+        .auth-form input { width: 100%; padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 15px; }
+        .auth-form button { width: 100%; padding: 12px; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .auth-form button:hover { background: #142150; }
+        .auth-alt { text-align: center; margin-top: 12px; font-size: 14px; }
+        .error { color: #b91c1c; background:#fee2e2; border:1px solid #fecaca; padding:10px; border-radius:8px; margin-bottom:12px; display:none }
+    </style>
+    <script>
+        const API_BASE = '';
+        async function handleLogin(e){
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const err = document.getElementById('error');
+            err.style.display = 'none';
+            try {
+                const res = await fetch(API_BASE + '/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify({ email, password }) });
+                const data = await res.json();
+                if(!res.ok){ err.textContent = data.error || 'Login failed'; err.style.display='block'; return; }
+                location.href = 'dashboard.html';
+            } catch(e){ err.textContent = 'Network error'; err.style.display='block'; }
+        }
+    </script>
+ </head>
+ <body>
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <h2 class="auth-title">Welcome back</h2>
+            <div id="error" class="error"></div>
+            <form class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-row"><input id="email" type="email" placeholder="Email" autocomplete="email" required></div>
+                <div class="form-row"><input id="password" type="password" placeholder="Password" minlength="6" required></div>
+                <button type="submit">Log In</button>
+            </form>
+            <p class="auth-alt">No account? <a href="signup.html">Create one</a></p>
+        </div>
+    </div>
+ </body>
+ </html>
+
+
